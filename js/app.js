@@ -7,10 +7,15 @@ var vm = new Vue({
     convertfrom: "BTC",
     convertto:"ETH",
     converttoname: "Ethereum",
+    computedCurrencyImgUrlFrom: 'url(https://changenow.io/images/sprite/currencies/btc.svg)',
+    currencyImgUrlFrom: '', 
+    computedCurrencyImgUrlTo: 'url(https://changenow.io/images/sprite/currencies/eth.svg)',
+    currencyImgUrlTo: '', 
     finalamount: null,
     amount: null,
     minAmount: null,
     message: '',
+
     imgArrowUrlFrom: 'url(./images/Vector.svg) no-repeat center',
     displayListFrom: 'none',
     imgArrowUrlTo: 'url(./images/Vector.svg) no-repeat center',
@@ -18,6 +23,7 @@ var vm = new Vue({
   },
 
   computed :{
+   
     computedArrowImgUrlFrom: function () {
       return this.imgArrowUrlFrom;
     },
@@ -32,6 +38,12 @@ var vm = new Vue({
     }
   },
   watch: {
+    currencyImgUrlFrom: function(val){
+      this.computedCurrencyImgUrlFrom = 'url(' + this.currencyImgUrlFrom + ')';
+    },
+    currencyImgUrlTo: function(val){
+      this.computedCurrencyImgUrlTo = 'url(' + this.currencyImgUrlTo + ')';
+    },
     amount: function(val) {
       this.message = '';
       if (val < this.minAmount) {
@@ -75,7 +87,6 @@ var vm = new Vue({
     
   methods: {
     openListFrom: function (event){
-      console.log(event);
       if (this.displayListFrom == 'none') {
         this.imgArrowUrlFrom = 'url(./images/close.svg) no-repeat center';
         this.displayListFrom = 'block';
@@ -83,7 +94,6 @@ var vm = new Vue({
       } else { //close list
         this.imgArrowUrlFrom = 'url(./images/Vector.svg) no-repeat center';
         this.displayListFrom = 'none';
-        //this.currencyListFiltered = this.currencyListAll;
       } 
       
     },
@@ -96,14 +106,10 @@ var vm = new Vue({
       } else { //close list
         this.imgArrowUrlTo = 'url(./images/Vector.svg) no-repeat center';
         this.displayListTo = 'none';
-        //this.currencyListFiltered = this.currencyListAll;
       } 
     },
     filterCurrency(val){
-      console.log(val);
       return this.currencyListAll.filter(function(currency) {
-        //console.log(currency);
-
           return currency.ticker.includes(val);
       })
     },
@@ -150,15 +156,10 @@ var vm = new Vue({
         return;
       }
       this.finalamount = json.estimatedAmount;
-      //return json.estimatedAmount;
     },
     async fetchResourceCurrencies() {
       const response = await fetch('https://api.changenow.io/v1/currencies?active=true')
       const json = await response.json()
-
-      //console.log( JSON.stringify(json));
-      //let currencies =[];
-      //json.forEach(element => {currencies.push({'ticker':element.ticker, 'name': element.name})})
       this.currencyListAll = json;
     }
   }

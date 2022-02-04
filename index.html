@@ -29,14 +29,14 @@
             <input class="input-from" type="number" v-model="amount" placeholder="Enter Amount" :value="minAmount" />
             <div class="delimiter"></div>
             <input class="select-from" :value="convertfrom" v-model="convertfrom" placeholder="Search"
-              v-on:click="openListFrom()">
-            <button v-on:click="openListFrom()" class="arrow-from"
+              v-on:click="openListFrom()" v-bind:style="{ background: computedCurrencyImgUrlFrom }">
+            <button v-on:click=" openListFrom()" class="arrow-from"
               v-bind:style="{ background: computedArrowImgUrlFrom }">
             </button>
 
             <ul v-bind:style="{ display: computedDisplayListFrom }" class="select-from-list">
-              <li v-on:click="convertfrom = a.ticker.toUpperCase(); openListFrom()" v-for="a in currencyListFiltered"
-                v-bind:value="a.ticker.toUpperCase()">
+              <li v-on:click="convertfrom = a.ticker.toUpperCase(); currencyImgUrlFrom = a.image; openListFrom()"
+                v-for="a in currencyListFiltered" v-bind:value="a.ticker.toUpperCase()">
                 <img class="icon" :src="a.image" onerror="this.style.visibility='hidden'"
                   style="filter: hue-rotate(175deg) !important">
                 {{a.ticker.toUpperCase()}}
@@ -54,13 +54,14 @@
             <input class="input-to" placeholder="Search" type="text" v-model="finalamount" :value="finalamount"
               disabled />
             <div class="delimiter"></div>
-            <input class="select-to" v-model="convertto" placeholder="Search" v-on:click="openListTo()">
+            <input class="select-to" v-model="convertto" placeholder="Search" v-on:click="openListTo()"
+              v-bind:style="{ background: computedCurrencyImgUrlTo }">
             <button v-on:click="openListTo()" class="arrow-from" v-bind:style="{ background: computedArrowImgUrlTo }">
             </button>
             </input>
             <ul v-bind:style="{ display: computedDisplayListTo }" class="select-from-list">
-              <li v-on:click="convertto = a.ticker.toUpperCase(); openListTo()" v-for="a in currencyListFiltered"
-                v-bind:value="a.ticker.toUpperCase()">
+              <li v-on:click="convertto = a.ticker.toUpperCase(); currencyImgUrlTo = a.image; openListTo()"
+                v-for="a in currencyListFiltered" v-bind:value="a.ticker.toUpperCase()">
                 <img class="icon" :src="a.image" onerror="this.style.visibility='hidden'"
                   style="filter: hue-rotate(175deg) !important">
                 {{a.ticker.toUpperCase()}}

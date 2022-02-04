@@ -140,13 +140,14 @@ p {
 .select-to {
   position: relative;
   z-index: 2;
+  outline: 0;
   width: 150px;
   text-align: center;
-}
-
-.select-from, 
-.select-to {
-  outline: 0;
+  background-position: 25.5px !important;
+  background-repeat: no-repeat !important;
+  background-size: 20px 20px !important;
+  filter: hue-rotate(175deg) !important
+  
 }
 
 .arrow-from {
@@ -353,6 +354,11 @@ p {
 
   .select-from, .select-to {
     width: 32.2vw;
+  }
+
+  .select-from,
+  .select-to {
+    background-position: 3.5vw !important;
   }
 
   .arrow-from {
