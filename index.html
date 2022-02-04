@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-search-select@2.9.5/dist/VueSearchSelect.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <div id="app">
+
+    <div class="container">
+      <h1 class="app__mainText">Crypto Exchange</h1>
+
+      <div class="converter">
+        <div class="converter__text">Exchange fast and easy</div>
+
+        <div class="form">
+
+          <div class="convert-from">
+            <input class="input-from" type="number" v-model="amount" placeholder="Enter Amount" :value="minAmount" />
+            <div class="delimiter"></div>
+            <input class="select-from" :value="convertfrom" v-model="convertfrom" placeholder="Search"
+              v-on:click="openListFrom()">
+            <button v-on:click="openListFrom()" class="arrow-from"
+              v-bind:style="{ background: computedArrowImgUrlFrom }">
+            </button>
+
+            <ul v-bind:style="{ display: computedDisplayListFrom }" class="select-from-list">
+              <li v-on:click="convertfrom = a.ticker.toUpperCase(); openListFrom()" v-for="a in currencyListFiltered"
+                v-bind:value="a.ticker.toUpperCase()">
+                <img class="icon" :src="a.image" onerror="this.style.visibility='hidden'"
+                  style="filter: hue-rotate(175deg) !important">
+                {{a.ticker.toUpperCase()}}
+              <li>
+            </ul>
+          </div>
+
+          <div class="form-img">
+            <button v-on:click="revers()" class="button-arrow">
+              <img class="button-arrow-img" src="./images/swap.png" alt="swap">
+            </button>
+          </div>
+
+          <div class="convert-to">
+            <input class="input-to" placeholder="Search" type="text" v-model="finalamount" :value="finalamount"
+              disabled />
+            <div class="delimiter"></div>
+            <input class="select-to" v-model="convertto" placeholder="Search" v-on:click="openListTo()">
+            <button v-on:click="openListTo()" class="arrow-from" v-bind:style="{ background: computedArrowImgUrlTo }">
+            </button>
+            </input>
+            <ul v-bind:style="{ display: computedDisplayListTo }" class="select-from-list">
+              <li v-on:click="convertto = a.ticker.toUpperCase(); openListTo()" v-for="a in currencyListFiltered"
+                v-bind:value="a.ticker.toUpperCase()">
+                <img class="icon" :src="a.image" onerror="this.style.visibility='hidden'"
+                  style="filter: hue-rotate(175deg) !important">
+                {{a.ticker.toUpperCase()}}
+              <li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="adress-form">
+          <h3 class="adress-form-text" v-bind:value="converttoname">Your {{converttoname}}
+            address
+          </h3>
+          <div class="adress-form-block">
+            <input class="adress-input" type="text">
+            <div class="btn">
+              <button class="adress-button">Exchange</button>
+              <span class="erorr">{{message}}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <script src="./js/app.js"></script>
+</body>
+
+</html>
